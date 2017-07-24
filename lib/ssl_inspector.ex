@@ -11,7 +11,7 @@ defmodule SslInspector do
   ## Examples
 
       iex> SslInspector.get_cert_expiry_date("www.google.co.uk", 443)
-      {:ok, ~D[2017-10-04]}
+      {:ok, DateTime.from_naive!(~N[2017-10-04 11:56:00], "Etc/UTC")}
 
       iex> SslInspector.get_cert_expiry_date("nonsuch.sslreminder.io")
       {:error, :nxdomain}
@@ -66,13 +66,13 @@ defmodule SslInspector do
   end
 
   defp parse_cert_date(date) when is_list(date) do
-    [year, month, day] =
+    [year, month, day, hours, minutes, seconds] =
       date
       |> Enum.chunk(2)
-      |> Enum.take(3)
+      |> Enum.take(6)
       |> Enum.map(&List.to_integer/1)
 
     year = year + 2000
-    Timex.to_date({year, month, day})
+    Timex.to_datetime({{year, month, day}, {hours, minutes, seconds}})
   end
 end
