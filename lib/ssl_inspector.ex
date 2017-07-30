@@ -11,7 +11,7 @@ defmodule SslInspector do
   ## Examples
 
       iex> SslInspector.get_cert_expiry_date("www.google.co.uk", 443)
-      {:ok, DateTime.from_naive!(~N[2017-10-04 11:56:00], "Etc/UTC")}
+      {:ok, DateTime.from_naive!(~N[2017-10-11 11:30:00], "Etc/UTC")}
 
       iex> SslInspector.get_cert_expiry_date("nonsuch.sslreminder.io")
       {:error, :nxdomain}
